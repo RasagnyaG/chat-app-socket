@@ -4,7 +4,7 @@ import User from "../models/user";
 export const fetchUser = async (token: string) => {
   try {
     await axios
-      .get("http://localhost:8000/api/get-user", {
+      .get(process.env.API_BASE_URL + "/user/get-user", {
         headers: {
           token: token,
         },

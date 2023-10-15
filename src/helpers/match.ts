@@ -75,6 +75,7 @@ export const connectUsers = (
 
       userSocket.emit("matched", chatRoomId);
       matchSocket.emit("matched", chatRoomId);
+      console.log("matched!", match.email);
       return match;
     }
   });

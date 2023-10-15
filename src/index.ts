@@ -4,6 +4,9 @@ import User from "./models/user";
 import { connectUsers } from "./helpers/match";
 import axios from "axios";
 import { onMessage } from "./helpers/chatRoom";
+import dotenv from "dotenv";
+dotenv.config();
+
 const server = http.createServer((req: any, res: any) => {});
 
 const io = new Server(server, {
@@ -33,8 +36,9 @@ io.on("connect", (socket) => {
   socket.on("startChat", async (token) => {
     console.log("start chat");
     let user: User;
+
     try {
-      let res = await axios.get("http://localhost:3000/api/user/get-user", {
+      let res = await axios.get(process.env.API_BASE_URL + "/user/get-user", {
         headers: {
           token: token,
         },
@@ -51,6 +55,7 @@ io.on("connect", (socket) => {
       );
       console.log("match");
       console.log(match);
+
       if (match === null) socket.emit("error", "No match found");
       if (match === null) console.log("emitted");
 
