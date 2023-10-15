@@ -7,7 +7,12 @@ import { onMessage } from "./helpers/chatRoom";
 import dotenv from "dotenv";
 dotenv.config();
 
-const server = http.createServer((req: any, res: any) => {});
+const server = http.createServer((req: any, res: any) => {
+  if (req.method === "GET") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Hello World");
+  }
+});
 
 const io = new Server(server, {
   cors: {
@@ -56,7 +61,8 @@ io.on("connect", (socket) => {
       console.log("match");
       console.log(match);
 
-      if (match === null) socket.emit("error", "No match found");
+      if (match === null && waitingQueue.includes(user))
+        socket.emit("error", "No match found");
       if (match === null) console.log("emitted");
 
       removeUserFromQueue(user);

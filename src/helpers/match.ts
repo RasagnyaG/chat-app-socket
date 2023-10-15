@@ -48,6 +48,8 @@ export const connectUsers = (
 
     // if no match is found, wait for 2 minutes
     if (!match) {
+      console.log("here 1");
+      console.log(socket.id);
       const timeoutDuration = 2 * 60 * 1000; // 2 minutes
       const timer = setTimeout(() => {
         // if not matched after 2 minutes
@@ -71,11 +73,18 @@ export const connectUsers = (
         }
       }, timeoutDuration);
     } else {
+      console.log("here 2");
+      console.log(socket.id);
+
       const matchSocket = socketRefs[match.id];
 
       userSocket.emit("matched", chatRoomId);
       matchSocket.emit("matched", chatRoomId);
+
+      console.log(matchSocket.id);
+      console.log(userSocket.id);
       console.log("matched!", match.email);
+
       return match;
     }
   });
