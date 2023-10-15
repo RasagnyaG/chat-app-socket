@@ -8,9 +8,9 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const server = http.createServer((req: any, res: any) => {
-  if (req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello World");
+  if (req.url === "/") {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.end("Hello world");
   }
 });
 
